@@ -1,73 +1,17 @@
 <section class="phx-hero">
-  <h1><%= gettext "Welcome to %{name}!", name: "Phoenix" %></h1>
-  <p>Peace of mind from prototype to production</p>
+  <h1><%= gettext "Welcome to %{name}!", name: "IT Service" %></h1>
+  <p>Smart Engineering</p>
 </section>
-  <div x-data="editor('<p>Hello world! :-)</p>')">
-
-    <template x-if="isLoaded()">
-      <div class="menu">
-        <button
-          @click="toggleHeading({ level: 1 })"
-          :class="{ 'is-active': isActive('heading', { level: 1 }, updatedAt) }"
-        >
-          H1
-        </button>
-        <button
-          @click="toggleBold()"
-          :class="{ 'is-active' : isActive('bold', updatedAt) }"
-        >
-          Bold
-        </button>
-        <button
-          @click="toggleItalic()"
-          :class="{ 'is-active' : isActive('italic', updatedAt) }"
-        >
-          Italic
-        </button>
-      </div>
-    </template>
-
-    <div x-ref="element"></div>
-  </div>
-
-  <style>
-    body { margin: 2rem; font-family: sans-serif; }
-    button.is-active { background: black; color: white; }
-    .ProseMirror { padding: 0.5rem 1rem; margin: 1rem 0; border: 1px solid #ccc; }
-  </style>
 
 <section class="row">
   <article class="column">
     <h2>Resources</h2>
     <ul>
       <li>
-        <a href="https://hexdocs.pm/phoenix/overview.html">Guides &amp; Docs</a>
+        <a href="/posts">Posts</a>
       </li>
       <li>
-        <a href="https://github.com/phoenixframework/phoenix">Source</a>
-      </li>
-      <li>
-        <a href="https://github.com/phoenixframework/phoenix/blob/v1.6/CHANGELOG.md">v1.6 Changelog</a>
-      </li>
-    </ul>
-  </article>
-  <article class="column">
-    <h2>Help</h2>
-    <ul>
-      <li>
-        <a href="https://elixirforum.com/c/phoenix-forum">Forum</a>
-      </li>
-      <li>
-        <a href="https://web.libera.chat/#elixir">#elixir on Libera Chat (IRC)</a>
-      </li>
-      <li>
-        <a href="https://twitter.com/elixirphoenix">Twitter @elixirphoenix</a>
-      </li>
-      <li>
-        <a href="https://elixir-slackin.herokuapp.com/">Elixir on Slack</a>
-      </li>
-      <li>
-        <a href="https://discord.gg/elixir">Elixir on Discord</a>
+        <a href="/images">Images</a>
       </li>
     </ul>
   </article>

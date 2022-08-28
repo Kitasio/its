@@ -17,7 +17,6 @@
   <thead>
     <tr>
       <th>Title</th>
-      <th>Body</th>
 
       <th></th>
     </tr>
@@ -26,7 +25,6 @@
     <%= for post <- @posts do %>
       <tr id={"post-#{post.id}"}>
         <td><%= post.title %></td>
-        <td><%= post.body %></td>
 
         <td>
           <span><%= live_redirect "Show", to: Routes.post_show_path(@socket, :show, post) %></span>

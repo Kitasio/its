@@ -29,6 +29,7 @@ import topbar from "../vendor/topbar"
 import Alpine from "../vendor/alpinejs"
 import { Editor } from '../vendor/@tiptap/core'
 import StarterKit from '../vendor/@tiptap/starter-kit'
+import Image from '../vendor/@tiptap/extension-image'
 
 document.addEventListener('alpine:init', () => {
   Alpine.store('html', '')
@@ -43,7 +44,8 @@ document.addEventListener('alpine:init', () => {
         editor = new Editor({
           element: this.$refs.element,
           extensions: [
-            StarterKit
+            StarterKit,
+            Image
           ],
           content: content,
           onCreate({ editor }) {
@@ -75,6 +77,13 @@ document.addEventListener('alpine:init', () => {
       },
       toggleItalic() {
         editor.chain().toggleItalic().focus().run()
+      },
+      addImage() {
+        const url = window.prompt('URL')
+
+        if (url) {
+          editor.chain().focus().setImage({ src: url }).run()
+        }
       },
     };
   });
