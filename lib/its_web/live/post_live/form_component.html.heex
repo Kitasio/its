@@ -1,0 +1,25 @@
+<div>
+  <h2><%= @title %></h2>
+
+  <.form
+    let={f}
+    for={@changeset}
+    id="post-form"
+    phx-target={@myself}
+    phx-submit="save">
+  
+    <%= label f, :title %>
+    <%= text_input f, :title %>
+    <%= error_tag f, :title %>
+  
+    <%= label f, :body %>
+    <.editor text={@post.body} />
+    <input type="hidden" id="post-form_body" name="post[body]" :value="$store.html"  />
+    <%= error_tag f, :body %>
+
+    <div>
+      <button phx-disable-with="Saving..." type="submit">Save</button>
+    </div>
+
+  </.form>
+</div>

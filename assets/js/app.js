@@ -27,10 +27,11 @@ import {LiveSocket} from "phoenix_live_view"
 import topbar from "../vendor/topbar"
 
 import Alpine from "../vendor/alpinejs"
-import { Editor } from '@tiptap/core'
-import StarterKit from '@tiptap/starter-kit'
+import { Editor } from '../vendor/@tiptap/core'
+import StarterKit from '../vendor/@tiptap/starter-kit'
 
 document.addEventListener('alpine:init', () => {
+  Alpine.store('html', '')
   Alpine.data('editor', (content) => {
     let editor
 
@@ -47,9 +48,13 @@ document.addEventListener('alpine:init', () => {
           content: content,
           onCreate({ editor }) {
             _this.updatedAt = Date.now()
+            const html = editor.getHTML()
+            Alpine.store('html', html)
           },
           onUpdate({ editor }) {
             _this.updatedAt = Date.now()
+            const html = editor.getHTML()
+            Alpine.store('html', html)
           },
           onSelectionUpdate({ editor }) {
             _this.updatedAt = Date.now()
@@ -79,7 +84,16 @@ window.Alpine = Alpine
 Alpine.start()
 
 let csrfToken = document.querySelector("meta[name='csrf-token']").getAttribute("content")
-let liveSocket = new LiveSocket("/live", Socket, {params: {_csrf_token: csrfToken}})
+let liveSocket = new LiveSocket("/live", Socket, {
+  params: {_csrf_token: csrfToken},
+  dom: {
+    onBeforeElUpdated(from, to) {
+      if (from._x_dataStack) {
+        window.Alpine.clone(from, to)
+      }
+    }
+  }
+})
 
 // Show progress bar on live navigation and form submits
 topbar.config({barColors: {0: "#29d"}, shadowColor: "rgba(0, 0, 0, .3)"})
