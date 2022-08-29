@@ -1,4 +1,4 @@
-<h1>Listing Images</h1>
+<h1 class="py-3">Listing Images</h1>
 
 <%= if @live_action in [:new, :edit] do %>
   <.modal return_to={Routes.image_index_path(@socket, :index)}>
@@ -14,27 +14,17 @@
   </.modal>
 <% end %>
 
-<table>
-  <thead>
-    <tr>
-      <th>Image url</th>
+<span class="my-5"><%= live_patch "New Image", to: Routes.image_index_path(@socket, :new) %></span>
 
-      <th></th>
-    </tr>
-  </thead>
-  <tbody id="images">
-    <%= for image <- @images do %>
-      <tr id={"image-#{image.id}"}>
-        <td><%= image.image_url %></td>
+<div class="columns-3xs gap-7 space-y-7">
+  <%= for image <- @images do %>
+    <div class="flex flex-col">
+      <img class="w-full" src={image.image_url} />
+      <div class="flex gap-3">
+        <span><%= live_redirect "Show", to: Routes.image_show_path(@socket, :show, image) %></span>
+        <span><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: image.id, data: [confirm: "Are you sure?"] %></span>
+      </div>
+    </div>
+  <% end %>
+</div>
 
-        <td>
-          <span><%= live_redirect "Show", to: Routes.image_show_path(@socket, :show, image) %></span>
-          <span><%= live_patch "Edit", to: Routes.image_index_path(@socket, :edit, image) %></span>
-          <span><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: image.id, data: [confirm: "Are you sure?"] %></span>
-        </td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<span><%= live_patch "New Image", to: Routes.image_index_path(@socket, :new) %></span>

@@ -19,8 +19,8 @@
     <strong>Image url:</strong>
     <%= @image.image_url %>
   </li>
+  <img class="w-full" src={@image.image_url} />
 
 </ul>
 
-<span><%= live_patch "Edit", to: Routes.image_show_path(@socket, :edit, @image), class: "button" %></span> |
 <span><%= live_redirect "Back", to: Routes.image_index_path(@socket, :index) %></span>

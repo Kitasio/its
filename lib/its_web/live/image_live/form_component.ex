@@ -12,7 +12,7 @@ defmodule ItsWeb.ImageLive.FormComponent do
      |> assign(assigns)
      |> assign(:changeset, changeset)
      |> assign(:user, user)
-     |> allow_upload(:image, accept: ~w(.jpg .jpeg .png), max_entries: 1)}
+     |> allow_upload(:image, accept: ~w(.jpg .jpeg .png), max_entries: 3)}
   end
 
   @impl true
@@ -33,10 +33,18 @@ defmodule ItsWeb.ImageLive.FormComponent do
         {:ok, Routes.static_path(socket, "/uploads/#{entry.uuid}.#{ext(entry)}")}
       end)
 
-    [file | _] = uploaded_files
-    image_params = %{image_params | "image_url" => file}
+    for url <- uploaded_files do
+      image_params = %{image_params | "image_url" => url}
+      save_image(socket, socket.assigns.action, image_params)
+    end
 
-    save_image(socket, socket.assigns.action, image_params)
+    {:noreply,
+     socket
+     |> push_redirect(to: socket.assigns.return_to)}
+  end
+
+  def handle_event("cancel_upload", %{"ref" => ref}, socket) do
+    {:noreply, cancel_upload(socket, :image, ref)}
   end
 
   def ext(entry) do
@@ -69,4 +77,9 @@ defmodule ItsWeb.ImageLive.FormComponent do
         {:noreply, assign(socket, changeset: changeset)}
     end
   end
+
+  defp error_to_string(:too_large), do: "Too large"
+  defp error_to_string(:too_many_files), do: "You have selected too many files"
+  defp error_to_string(:not_accepted), do: "You have selected an unacceptable file type"
+  defp error_to_string(error), do: error
 end

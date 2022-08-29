@@ -1,5 +1,21 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
 /* This file is for your main application CSS */
-@import "./phoenix.css";
+a {
+  @apply text-blue-dark hover:underline hover:text-blue-light;
+}
+h1 {
+  @apply text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-orange-dark to-orange-light;
+}
+form {
+  @apply flex flex-col gap-10 bg-dark;
+}
+
+input {
+  background-color: #2B2C35!important;
+}
 
 /* Alerts and form errors used by phx.new */
 .alert {
@@ -63,11 +79,11 @@
 }
 
 .phx-modal-content {
-  background-color: #fefefe;
+  background-color: #2B2C35;
   margin: 15vh auto;
   padding: 20px;
   border: 1px solid #888;
-  width: 80%;
+  width: 60%;
 }
 
 .phx-modal-close {
@@ -118,3 +134,4 @@
   0% { opacity: 1; }
   100% { opacity: 0; }
 }
+
